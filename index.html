@@ -256,31 +256,39 @@
         </div>
 
         <div class="booking-wrapper">
-            <div class="booking-form">
-                <h3>Book Your Session</h3>
-                <form action="https://script.google.com/macros/s/AKfycbyHQnMzIVWr01XdGH_QpPN3OQxVKAABA3ZXnJgiZY2m2La-X4dCn9jrgNEoLcBJxwJU/exec" method="POST">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Full Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" class="form-control" placeholder="Phone Number" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="date" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="time" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control" placeholder="Special Requests or Notes..."></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit">Book My Session</button>
-                </form>
+    <div id="formContainer" class="booking-form">
+        <h3>Book Your Session</h3>
+        <form id="bookingForm" action="https://script.google.com/macros/s/AKfycbyHQnMzIVWr01XdGH_QpPN3OQxVKAABA3ZXnJgiZY2m2La-X4dCn9jrgNEoLcBJxwJU/exec" method="POST">
+            
+            <div class="form-group">
+                <input type="text" name="Client Name" class="form-control" placeholder="Full Name" required>
             </div>
-            <div id="successMessage" style="display: none; text-align: center; padding: 20px; color: #28a745; font-size: 20px; font-weight: bold;">
-  <i class="fa-solid fa-circle-check"></i> Submitted Successfully! We will contact you soon.
-</div>
+            
+            <div class="form-group">
+                <input type="tel" name="Phone Number" class="form-control" placeholder="Phone Number" required>
+            </div>
+            
+            <div class="form-group">
+                <input type="date" name="Requested Date" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <input type="time" name="Requested Time" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <textarea name="Client Message" class="form-control" placeholder="Special Requests or Notes..."></textarea>
+            </div>
+            
+            <button type="submit" class="btn-submit">Book My Session</button>
+        </form>
+    </div>
 
+    <div id="successMessage" style="display: none; text-align: center; padding: 40px 20px; color: #28a745; font-size: 22px; font-weight: bold;">
+        <i class="fa-solid fa-circle-check" style="font-size: 40px; display: block; margin-bottom: 10px;"></i> 
+        Submitted Successfully! <br><span style="font-size: 16px; color: #555; font-weight: normal;">We will contact you soon to confirm your session.</span>
+    </div>
+</div>
             <div class="map-box">
                 <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3260.132221437798!2d77.55552607420033!3d12.980834087335381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3d0bf9e792cb%3A0xbf91cd0ae477038a!2sAbundance%20Reflexology%20CRANIOSACRAL%20THERAPY!5e1!3m2!1sen!2sin!4v1780320142081!5m2!1sen!2sin" 
@@ -481,31 +489,31 @@
             });
         });
     </script>
-        <script>
+    <script>
   document.getElementById('bookingForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevents the page from reloading or opening a weird Google page
+    e.preventDefault(); // This is what stops the raw text page from loading!
     
-    const form = this;
+    const formContainer = document.getElementById('formContainer');
     const successMessage = document.getElementById('successMessage');
-    const submitButton = form.querySelector('button[type="submit"]');
+    const submitButton = this.querySelector('.btn-submit');
     
-    // Change button text to show it is working
+    // Change button text during transmission
     submitButton.textContent = "Sending...";
     submitButton.disabled = true;
 
-    // Secretly send the data to your Google Sheet Web App
-    fetch(form.action, {
+    // Send the data in the background
+    fetch(this.action, {
       method: 'POST',
-      body: new FormData(form)
+      body: new FormData(this)
     })
     .then(response => {
-      // Hide the form and show the glorious success message!
-      form.style.display = 'none';
+      // Hide ONLY the form box and show the green success message instead
+      formContainer.style.display = 'none';
       successMessage.style.display = 'block';
     })
     .catch(error => {
       console.error('Error!', error.message);
-      submitButton.textContent = "Submit Booking";
+      submitButton.textContent = "Book My Session";
       submitButton.disabled = false;
       alert("Oops! Something went wrong. Please try again.");
     });
