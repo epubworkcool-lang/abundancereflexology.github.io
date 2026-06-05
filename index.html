@@ -481,5 +481,35 @@
             });
         });
     </script>
+        <script>
+  document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevents the page from reloading or opening a weird Google page
+    
+    const form = this;
+    const successMessage = document.getElementById('successMessage');
+    const submitButton = form.querySelector('button[type="submit"]');
+    
+    // Change button text to show it is working
+    submitButton.textContent = "Sending...";
+    submitButton.disabled = true;
+
+    // Secretly send the data to your Google Sheet Web App
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form)
+    })
+    .then(response => {
+      // Hide the form and show the glorious success message!
+      form.style.display = 'none';
+      successMessage.style.display = 'block';
+    })
+    .catch(error => {
+      console.error('Error!', error.message);
+      submitButton.textContent = "Submit Booking";
+      submitButton.disabled = false;
+      alert("Oops! Something went wrong. Please try again.");
+    });
+  });
+</script>
 </body>
 </html>
