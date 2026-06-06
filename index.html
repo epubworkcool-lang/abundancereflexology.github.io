@@ -16,6 +16,7 @@
        HEADER
     =================================================== -->
     <header class="site-header">
+        <link rel="icon" type="image/png" href="logo.jpg">
         <div class="header-container">
             <a href="#" class="logo-wrapper">
                 <!-- Using original text icon concept inside high-end header layout -->
@@ -96,7 +97,7 @@
             
             <div class="stat-belt">
                 <div>⭐⭐⭐⭐⭐ 5/5 Happy Clients</div>
-                <div>👣 5000+ Sessions Completed</div>
+                <div>👣 500+ Sessions Completed</div>
                 <div>📍 Rajajinagar, Bangalore</div>
                 <div>🛡️ Safe & Hygienic Environment</div>
             </div>
@@ -249,58 +250,45 @@
     <!-- ===================================================
        BOOKING SECTION
     =================================================== -->
-   <section class="booking" id="booking">
-    <div class="section-title">
-        <span>Book Appointment</span>
-        <h2>Start Your Relaxation Journey</h2>
-    </div>
+    <section class="booking" id="booking">
+        <div class="section-title">
+            <span>Book Appointment</span>
+            <h2>Start Your Relaxation Journey</h2>
+        </div>
 
-    <div class="booking-wrapper">
-        
-        <div id="formContainer" class="booking-form">
-            <h3>Book Your Session</h3>
-            <form id="bookingForm" action="https://script.google.com/macros/s/AKfycbyHQnMzIVWr01XdGH_QpPN3OQxVKAABA3ZXnJgiZY2m2La-X4dCn9jrgNEoLcBJxwJU/exec" method="POST">
-                
-                <div class="form-group">
-                    <input type="text" name="Client Name" class="form-control" placeholder="Full Name" required>
-                </div>
-                
-                <div class="form-group">
-                    <input type="tel" name="Phone Number" class="form-control" placeholder="Phone Number" required>
-                </div>
-                
-                <div class="form-group">
-                    <input type="date" name="Requested Date" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <input type="time" name="Requested Time" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <textarea name="Client Message" class="form-control" placeholder="Special Requests or Notes..."></textarea>
-                </div>
-                
-                <button type="submit" class="btn-submit">Book My Session</button>
-            </form>
+        <div class="booking-wrapper">
+            <div class="booking-form">
+                <h3>Book Your Session</h3>
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" class="form-control" placeholder="Phone Number" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="time" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="Special Requests or Notes..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Book My Session</button>
+                </form>
+            </div>
 
-            <div id="successMessage" style="display: none; text-align: center; padding: 20px 0 0 0; color: #28a745; font-size: 18px; font-weight: bold; margin-top: 15px;">
-                <i class="fa-solid fa-circle-check" style="font-size: 24px; vertical-align: middle; margin-right: 8px;"></i> 
-                Submitted Successfully! <br>
-                <span style="font-size: 14px; color: #555; font-weight: normal;">We will contact you soon to confirm your session.</span>
+            <div class="map-box">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3260.132221437798!2d77.55552607420033!3d12.980834087335381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3d0bf9e792cb%3A0xbf91cd0ae477038a!2sAbundance%20Reflexology%20CRANIOSACRAL%20THERAPY!5e1!3m2!1sen!2sin!4v1780320142081!5m2!1sen!2sin" 
+                    loading="lazy"
+                    allowfullscreen="" 
+                referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
             </div>
         </div>
-
-        <div class="map-box">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3260.132221437798!2d77.55552607420033!3d12.980834087335381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3d0bf9e792cb%3A0xbf91cd0ae477038a!2sAbundance%20Reflexology%20CRANIOSACRAL%20THERAPY!5e1!3m2!1sen!2sin!4v1780320142081!5m2!1sen!2sin" 
-                loading="lazy"
-                allowfullscreen="" 
-                referrerpolicy="no-referrer-when-downgrade">
-            </footer>
-            </iframe>
-        </div>
-
+    </section>
 
     <!-- ===================================================
        TESTIMONIALS SECTION
@@ -491,45 +479,5 @@
             });
         });
     </script>
-    // 3. Google Sheets Form Submission Handler (Keeps Form Visible)
-        const bookingForm = document.getElementById('bookingForm');
-        if (bookingForm) {
-            bookingForm.addEventListener('submit', function(e) {
-                e.preventDefault(); // Prevents page reload or breaking away
-                
-                const currentForm = this;
-                const successMessage = document.getElementById('successMessage');
-                const submitButton = currentForm.querySelector('.btn-submit') || currentForm.querySelector('button[type="submit"]');
-                
-                // Show loading state on button
-                if (submitButton) {
-                    submitButton.textContent = "Sending...";
-                    submitButton.disabled = true;
-                }
-
-                // Send data quietly to Google Sheets
-                fetch(currentForm.action, {
-                    method: 'POST',
-                    body: new FormData(currentForm)
-                })
-                .then(response => {
-                    // Success! Show message below the form and clear the inputs
-                    if (successMessage) successMessage.style.display = 'block';
-                    currentForm.reset(); 
-                    
-                    // Reset button appearance
-                    if (submitButton) {
-                        submitButton.textContent = "Book Another Session";
-                        submitButton.disabled = false;
-                    }
-                })
-                .catch(error => {
-                    console.error('Submission Error!', error.message);
-                    if (submitButton) {
-                        submitButton.textContent = "Book My Session";
-                        submitButton.disabled = false;
-                    }
-                    alert("Oops! Something went wrong. Please try again.");
-                });
-            });
-        }
+</body>
+</html>
